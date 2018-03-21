@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:s="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>NIS - Login</title>
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/template/css/login.css"/>
+    </h:head>
+    <h:body>
+        <p:growl id="growl" sticky="true" showDetail="true" />
+        <h:form id="loginForm">
+         
+            <p:dialog class="dialog" header="Núcleo Integrado de Saúde - Acesso"  width="435"
+                      visible="true" closable="false" showEffect="clip"
+                      draggable="false" resizable="false">
+                 
+                <p:panelGrid columns="2" id="panelLogin" styleClass="semBorda" >
+                    <h:outputText value="Usuário:" />
+                    <p:inputText id="loginUsuario" value="#{loginBean.usuario}" label="username" />
+                    <h:outputText value="Senha:" />
+                    <p:password id="loginSenha"  value="#{loginBean.senha}" label="password" />
+                    <p:commandButton value="Acessar" icon="ui-icon-star" update="growl" 
+                                     action="#{loginBean.confirmLogin()}" />
+                    <p:link value="Esqueci minha senha">
+                    </p:link>
+                </p:panelGrid>
+                       
+            </p:dialog>
+            <h:graphicImage url="#{request.authType}/template/imagens/devry.png" class="devry"/>
+          
+        </h:form>
+    </h:body>
+</html>

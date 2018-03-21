@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/template/css/jquery-ui.css" />
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/template/css/jquery-ui.min.css"/>
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/template/css/jquery-ui.structure.css" />
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/template/css/jquery-ui.structure.min.css"/>
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/template/css/jquery-ui.theme.css" />
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/template/css/jquery-ui.theme.min.css"/>
+        <title>ClinicaEscola</title>
+    </h:head>
+    <h:body>
+        <p:growl id="grow1" sticky="false" autoUpdate="true" showSummary="true" showDetail="true"/>
+        <dir align="center">
+            <p:layout fullPage="true"> 
+                <p:layoutUnit position="west" size="100" visible="false">
+                </p:layoutUnit>
+                <p:layoutUnit position="east" size="100" visible="false">
+                </p:layoutUnit> 
+                <p:layoutUnit class="back" position="center" size="400"> 
+                    <p:layout>
+                        <p:layoutUnit id="topo" position="north" size="100"> 
+                            <h:graphicImage url="#{request.authType}/template/imagens/banner.png" width="100%" height="90%"/>
+                        </p:layoutUnit>
+                        <p:layoutUnit position="west" size="235">  
+                            <ui:include src="../menu/menu.xhtml" />
+                        </p:layoutUnit>  
+                        <p:layoutUnit position="center">  
+                            <ui:insert name="conteudo">
+                                O que estiver aqui será center!
+                            </ui:insert>
+                        </p:layoutUnit>  
+                    </p:layout>
+                </p:layoutUnit>         
+            </p:layout>  
+        </dir>
+    </h:body>
+</html>

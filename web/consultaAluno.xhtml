@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:s="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head></h:head>    
+    <h:body>
+    
+  
+  
+        <h:form>
+            <p:panel header="Consultar Alunos">
+                <p:panelGrid columns="4" >
+                    <p:outputLabel value="Matrícula: " />
+                    <p:inputText id="matricula" />
+                    <p:outputLabel value="Curso: " />
+                    <p:selectOneMenu id="curso" style="width:138px">
+                        <f:selectItem itemLabel="Todos" itemValue="" />
+                        <f:selectItem itemLabel="Enfermagem" itemValue="E" />
+                        <f:selectItem itemLabel="Fisioterapia" itemValue="F" />
+                        <f:selectItem itemLabel="Nutrição" itemValue="N" />
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Nome: "/>
+                    <p:inputText id="nome" style="width:640px"/>
+                    <p:outputLabel value="Sexo: " />
+                    <p:selectOneMenu id="sexo" style="width:138px">
+                        <f:selectItem itemLabel="Todos" itemValue="" />
+                        <f:selectItem itemLabel="Masculino" itemValue="M" />
+                        <f:selectItem itemLabel="Feminino" itemValue="F" />
+                    </p:selectOneMenu>
+
+                </p:panelGrid>
+                <br /><br />
+                <center>
+                    <p:commandButton id="btnPesquisar" value="Pesquisar" />
+                </center>
+                <br /><br />
+                <p:dataTable id="idal" emptyMessage="Não existem Alunos cadastrados." 
+                             var="al" selectionMode="single">
+
+                    <p:column headerText="Matrícula" width="20%">  
+
+                    </p:column>
+                    <p:column headerText="Nome do Aluno" width="60%">  
+
+                    </p:column>  
+
+                    <p:column headerText="Curso" width="20%">
+                    </p:column>  
+
+                    <p:column headerText="">  
+
+                    </p:column>
+                    <f:facet name="footer">  
+                        <p:commandButton id="btnNovo" value="Novo" />
+                        <p:commandButton id="btnEditar" value="Editar" />
+                        <!--<p:commandButton id="btnVisualizar" value="Visualizar" ajax="false"></p:commandButton>-->
+                    </f:facet> 
+                </p:dataTable>
+
+            </p:panel>
+        </h:form>
+    </h:body>
+    </html>
+    

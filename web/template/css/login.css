@@ -1,0 +1,41 @@
+body{
+    background-color: #B0C4DE;
+}
+
+.dialog{
+    border-radius: 10px;
+}
+
+.semBorda tr, .semBorda td {
+    border: none !important;
+}
+
+.devry{
+    width: 30%;
+    height: 10%;
+    float: left;
+
+}
+
+
+.ruy{
+    margin: 0 0 0 40px;
+    width: 20%;
+    height:15%;
+    padding: 0 0 0 6%;
+    float: left;
+}
+.ruy_old{
+    margin: 0 0 0 5px; 
+    width: 25%;
+    height:10%;
+    padding: 0 0 0 15%;
+    float: left;
+}
+.area1{
+    margin: 0 0 0 5px; 
+    width: 25%;
+    height:10%;
+    padding: 0 0 0 2%;
+    float: left;
+}
