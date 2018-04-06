@@ -1,15 +1,21 @@
 package br.ba.devry.nis.dao;
 
+import br.ba.devry.nis.model.Login;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoginDAO {
 
-    private Connection connection = null;
-    private Statement statement = null;
-    private ResultSet resultset = null;
+    private List<Login> list;
+    private Connection con = null;
+    private PreparedStatement stmt = null;
+    private ResultSet rs = null;
+    private String query;
 
     public void connect() {
 
@@ -22,8 +28,7 @@ public class LoginDAO {
         try {
             Class.forName(driver);
 
-            this.connection = DriverManager.getConnection(stringServer, user, password);
-            this.statement = this.connection.createStatement();
+            this.con = DriverManager.getConnection(stringServer, user, password);
 
         } catch (Exception e) {
             System.out.println("Erro: " + e.getMessage());
@@ -32,7 +37,7 @@ public class LoginDAO {
     }
 
     public boolean isConnected() {
-        if (this.connection != null) {
+        if (this.con != null) {
             return true;
         } else {
             return false;
@@ -42,18 +47,22 @@ public class LoginDAO {
 
     public void closeConnection() {
         try {
-            this.connection.close();
+            this.con.close();
+            this.stmt.close();
+            this.rs.close();
         } catch (Exception e) {
             System.out.println("Erro: " + e.getMessage());
         }
     }
 
-    public Boolean userExists(String user) {
-        try {
-            String query = "SELECT 1 FROM login where USUARIO = '" + user + "';";
-            this.resultset = this.statement.executeQuery(query);
+    public Boolean findUser(String user) {
 
-            if (this.resultset.next()) {
+        try {
+            query = "SELECT 1 FROM login where USUARIO = ?";
+            stmt = this.con.prepareStatement(query);
+            stmt.setString(1, user);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
                 return true;
             }
 
@@ -66,10 +75,11 @@ public class LoginDAO {
 
     public Boolean confirmPassword(String password) {
         try {
-            String query = "SELECT 1 FROM login where SENHA = '" + password + "';";
-            this.resultset = this.statement.executeQuery(query);
-
-            if (this.resultset.next()) {
+            query = "SELECT 1 FROM login where SENHA = ?";
+            stmt = this.con.prepareStatement(query);
+            stmt.setString(1, password);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
                 return true;
             }
 
@@ -80,4 +90,36 @@ public class LoginDAO {
         return false;
     }
 
+    public List<Login> getLoginList() {
+      
+        List<Login> listaLogin = new ArrayList<>();
+        try {
+
+            stmt = con.prepareStatement("select * from login");
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+               
+                 Login login = new Login();
+                login.setId(rs.getInt("ID"));
+                login.setUsuario(rs.getString("usuario"));
+                login.setSenha(rs.getString("senha"));
+                listaLogin.add(login);
+
+            }
+            
+        } catch (Exception e) {
+        }
+        finally {  
+            try {  
+                stmt.close();  
+                rs.close();  
+                con.close();  
+            } catch (Exception e) {  
+              
+            }  
+        }
+     
+return listaLogin;
+    }
 }

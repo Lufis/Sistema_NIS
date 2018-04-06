@@ -1,6 +1,7 @@
 body{
-    background-color: #B0C4DE;
+    background-color: #C0C0C0;
 }
+
 
 .dialog{
     border-radius: 10px;
@@ -11,11 +12,13 @@ body{
 }
 
 .devry{
+
     width: 30%;
     height: 10%;
     float: left;
 
 }
+
 
 
 .ruy{

@@ -1,45 +1,48 @@
 package br.ba.devry.nis.beans;
 
 import br.ba.devry.nis.dao.LoginDAO;
+import br.ba.devry.nis.model.Login;
 import java.io.Serializable;
+import java.util.List;
+import java.util.Objects;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+/**
+ *
+ * @author Daniel Melo
+ */
 @ManagedBean(name = "loginBean")
 @SessionScoped
 public class LoginBean implements Serializable {
 
-    /**
-     *
-     */
-    private String usuario;
-    private String senha;
-    private String mensagem = "";
+    private List<Login> listaLogin;
+    private Login login = new Login();
+    private LoginDAO validateLogin = new LoginDAO();
 
     public String confirmLogin() {
         FacesMessage message = null;
-        LoginDAO validateLogin = new LoginDAO();
         validateLogin.connect();
         if (validateLogin.isConnected()) {
-            if (usuario.equals("") || senha.equals("")) {
-                if (usuario.equals("") && senha.equals("")) {
+            if (login.getUsuario().equals("") || login.getSenha().equals("")) {
+                if (login.getUsuario().equals("") && login.getSenha().equals("")) {
                     message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Erro ao logar", "Campo de usuário e senha estão vazios");
 
                 } else {
-                    if (usuario.equals("")) {
+                    if (login.getUsuario().equals("")) {
                         message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Erro ao logar", "Campo de usuário está vazio");
                     }
-                    if (senha.equals("")) {
+                    if (login.getSenha().equals("")) {
                         message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Erro ao logar", "Campo de senha está vazio");
                     }
                 }
             } else {
 
-                if (validateLogin.userExists(usuario)) {
-                    if (validateLogin.confirmPassword(senha)) {
-                        mensagem = "Acesso Autorizado";
+                if (validateLogin.findUser(login.getUsuario())) {
+                    if (validateLogin.confirmPassword(login.getSenha())) {
+
                         validateLogin.closeConnection();
                         return "menu.xhtml?faces-redirect=true";
 
@@ -63,28 +66,23 @@ public class LoginBean implements Serializable {
         return null;
     }
 
-    public String getUsuario() {
-        return usuario;
+    public List listarLogin() {
+        validateLogin.connect();
+        if(validateLogin.isConnected()){
+        listaLogin = validateLogin.getLoginList();
+        return this.listaLogin;
+        }
+       return this.listaLogin;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public Login getLogin() {
+        return login;
     }
 
-    public String getSenha() {
-        return senha;
+    public void setLogin(Login login) {
+        this.login = login;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
 
-    public String getMensagem() {
-        return mensagem;
-    }
-
-    public void setMensagem(String mensagem) {
-        this.mensagem = mensagem;
-    }
 
 }
